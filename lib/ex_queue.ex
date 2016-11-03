@@ -2,57 +2,38 @@ defmodule ExQueue do
   @moduledoc """
   Documentation for ExQueue.
   """
+  alias ExQueue.EtsHelper
 
   @doc """
-  create an ets table with the name `:queue`
-  Returns a table id
-
-  # Example
-  iex(1)> ExQueue.create()
-  :queue
+  Inserts an empty queue into the ets table
   """
   def create() do
-    :ets.new(:queue, [:set, :protected, :named_table])
+    EtsHelper.create()
+
+    :queue.new
+    |> EtsHelper.insert
   end
 
   @doc """
-  inserts into the table
-
-  Example
-  iex(1)> queue = {[],[]}
-  iex(1)> ExQueue.create()
-  iex(1)> ExQueue.insert(queue)
-  true
+  Inserts a value into a queue
   """
-  def insert(queue) do
-    :ets.insert(:queue, {:saved_queue, queue})
+  def insert(value) do
+    [{:saved_queue, queue}] = EtsHelper.lookup
+    queue = :queue.in(value, queue)
+    EtsHelper.insert(queue)
   end
 
   @doc """
-  update value in the table
-
-  Example
-  iex(1)> queue = {[],[]}
-  iex(1)> ExQueue.create()
-  iex(1)> ExQueue.insert(queue)
-  iex(1)> ExQueue.update({[1], []})
-  true
+  Pop off the queue
   """
-  def update(queue) do
-    :ets.insert(:queue, {:saved_queue, queue})
-  end
-
-  @doc """
-  lookup value via the atom name `:saved_queue`
-
-  Example
-  iex(1)> queue = {[],[]}
-  iex(1)> ExQueue.create()
-  iex(1)> ExQueue.insert(queue)
-  iex(1)> ExQueue.lookup()
-  [{:saved_queue, {[], []}}]
-  """
-  def lookup() do
-    :ets.lookup(:queue, :saved_queue)
+  def pop() do
+    [{:saved_queue, queue}] = EtsHelper.lookup()
+    {{value, item}, old_queue} = :queue.out(queue)
+    case EtsHelper.insert(old_queue) do
+      true ->
+        item
+      false ->
+        :error
+    end
   end
 end

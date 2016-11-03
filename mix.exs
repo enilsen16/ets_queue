@@ -14,8 +14,7 @@ defmodule ExQueue.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger],
-     mod: {ExQueue.Application, []}]
+    [applications: [:logger]]
   end
 
   # Dependencies can be Hex packages:
@@ -28,8 +27,6 @@ defmodule ExQueue.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [
-
-    ]
+    []
   end
 end
