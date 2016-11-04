@@ -12,7 +12,7 @@ defmodule ExQueue.EtsHelper do
   :queue
   """
   def create() do
-    :ets.new(:queue, [:set, :protected, :named_table, read_concurrency: true])
+    :ets.new(:queue, [:set, :public, :named_table, read_concurrency: true, write_concurrency: true])
   end
 
   @doc """
