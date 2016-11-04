@@ -28,7 +28,7 @@ defmodule ExQueue do
   """
   def pop() do
     [{:saved_queue, queue}] = EtsHelper.lookup()
-    {{value, item}, old_queue} = :queue.out(queue)
+    {{_value, item}, old_queue} = :queue.out(queue)
     case EtsHelper.insert(old_queue) do
       true ->
         item
