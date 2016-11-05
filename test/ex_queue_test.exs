@@ -1,24 +1,20 @@
 defmodule ExQueueTest do
   use ExUnit.Case
 
-  setup do
-    ExQueue.create()
-    :ok
+  test "create a new queue" do
+    ExQueue.start_link
+    assert ExQueue.new(:saved_queue) == {[], []}
   end
 
-  test "add a value to the queue" do
-    ExQueue.insert("hioperator")
-    assert ExQueue.EtsHelper.lookup() == [{:saved_queue, {["hioperator"], []}}]
-  end
+  test "adds to the queue, then removes" do
+    ExQueue.start_link
+    ExQueue.new(:saved_queue)
 
-  test "pop a value from the queue" do
-    ExQueue.insert("hioperator")
-    assert ExQueue.EtsHelper.lookup() == [{:saved_queue, {["hioperator"], []}}]
+    ExQueue.add(:saved_queue, "hioperator")
+    ExQueue.add(:saved_queue, "google")
+    assert ExQueue.find(:saved_queue) == {:ok, {["google"], ["hioperator"]}}
 
-    ExQueue.insert("taylor-stitch")
-    assert ExQueue.EtsHelper.lookup() == [saved_queue: {["taylor-stitch"], ["hioperator"]}]
-
-    assert ExQueue.pop() == "hioperator"
-    assert ExQueue.pop() == "taylor-stitch"
+    ExQueue.pop(:saved_queue)
+    assert ExQueue.find(:saved_queue) == {:ok, {[], ["google"]}}
   end
 end
