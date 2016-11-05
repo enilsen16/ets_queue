@@ -1,6 +1,6 @@
 # ExQueue
 
-**TODO: Add description**
+A FIFO queue wrapped around GenServer.
 
 ## Installation
 
@@ -21,8 +21,4 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
       [applications: [:ex_queue]]
     end
     ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ex_queue](https://hexdocs.pm/ex_queue).
-
+    
