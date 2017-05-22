@@ -43,7 +43,7 @@ defmodule ExQueue.Mixfile do
     # These are the default files included in the package
     [
       name: :ex_queue,
-      files: ["lib", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      files: ["lib", "mix.exs", "README*"],
       maintainers: ["Erik Nilsen"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/enilsen16/ex_queue"}
