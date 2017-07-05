@@ -3,7 +3,7 @@ defmodule ExQueue.Mixfile do
 
   def project do
     [app: :ex_queue,
-     version: "0.4.6",
+     version: "0.4.7",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -43,7 +43,7 @@ defmodule ExQueue.Mixfile do
     # These are the default files included in the package
     [
       name: :ex_queue,
-      files: ["lib", "mix.exs", "README*"],
+      files: ["lib", "mix.exs", "mix.lock"],
       maintainers: ["Erik Nilsen"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/enilsen16/ex_queue"}

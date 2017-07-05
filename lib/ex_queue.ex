@@ -62,7 +62,6 @@ defmodule ExQueue do
     end
   end
 
-
   ## Helpers
   defp new_queue(table, name) do
     :ets.insert(table, {name, :queue.new})
